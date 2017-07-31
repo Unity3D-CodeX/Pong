@@ -6,11 +6,11 @@ public class GoalController : MonoBehaviour
 {
 	public bool isPlayer1Goal;
 
-	private GameObject gameController;
+	private GameController gameController;
 
 	public void Start()
 	{
-		gameController = GameObject.FindGameObjectWithTag("GameController");
+		gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -19,11 +19,11 @@ public class GoalController : MonoBehaviour
 		{
 			if (isPlayer1Goal)
 			{
-				gameController.GetComponent<GameController>().AddScore(Player.Player2);
+				gameController.AddScore(Player.Player2);
 			}
 			else
 			{
-				gameController.GetComponent<GameController>().AddScore(Player.Player1);
+				gameController.AddScore(Player.Player1);
 			}
 		}
 	}

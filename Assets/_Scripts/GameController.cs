@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public enum Player
 {
@@ -8,27 +7,36 @@ public enum Player
 	Player2
 }
 
+public enum PlayerPart
+{
+	Upper,
+	Middle,
+	Lower
+}
+
 public class GameController : MonoBehaviour
 {
+	/// Public variables
+	
+	// Game objects with physics
+	public GameObject[] Players;
+	public GameObject[] Borders;
+	public GameObject Ball;
+
+	// UI game objects
+	public GameObject Player1ScoreText;
+	public GameObject Player2ScoreText;
+
 	/// Private variables
 
 	// Player scores
 	private int player1Score;
 	private int player2Score;
 
-	// Game objects
-	private GameObject[] Players;
-	private GameObject[] Borders;
-	private GameObject Ball;
 
 	// Use this for initialization
 	void Start ()
 	{
-		// Get game objects
-		Players = GameObject.FindGameObjectsWithTag("Player");
-		Borders = GameObject.FindGameObjectsWithTag("Border");
-		Ball = GameObject.FindGameObjectWithTag("Ball");
-
 		ResetGame();
 		StartGame();
 	}
@@ -63,15 +71,17 @@ public class GameController : MonoBehaviour
 	// Adds a point to player and resets the game
 	public void AddScore(Player player)
 	{
-		// Adds score to player 1
+		// Adds score to player 1 and update text
 		if (player == Player.Player1)
 		{
 			player1Score += 1;
+			Player1ScoreText.GetComponent<Text>().text = player1Score.ToString();
 		}
-		// Adds score to player 2
+		// Adds score to player 2 and update text
 		else
 		{
 			player2Score += 1;
+			Player2ScoreText.GetComponent<Text>().text = player2Score.ToString();
 		}
 
 		// Starts next round

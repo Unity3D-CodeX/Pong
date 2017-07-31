@@ -7,18 +7,19 @@ public class PaddleMovement : MonoBehaviour
 	/// Public variables
 	public float MovementSpeed;
 	public bool isPlayer1;
+	public PlayerPart PaddlePart;
 
 	/// Private variables
-	private Transform myTransform;
 	private Rigidbody2D myRigidBody2D;
+	private GameController gameController;
 	private Vector2 movement;
 	private bool isGameStarted;
 
 	public void Start ()
 	{
 		/// Getting private variables
-		myTransform = GetComponent<Transform>();
 		myRigidBody2D = GetComponent<Rigidbody2D>();
+		gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
 
 		//ResetPlayer();
 	}
@@ -71,14 +72,35 @@ public class PaddleMovement : MonoBehaviour
 	// Movement control for player 1
 	private void Player1Move()
 	{
-			movement = new Vector2(0, MovementSpeed * Input.GetAxisRaw("Player 1 Movement"));
-			myRigidBody2D.velocity = movement;
+		movement = new Vector2(0, MovementSpeed * Input.GetAxisRaw("Player 1 Movement"));
+		myRigidBody2D.velocity = movement;
 	}
 
 	// Movement control for player 2
 	private void Player2Move()
 	{
-			movement = new Vector2(0, MovementSpeed * Input.GetAxisRaw("Player 2 Movement"));
-			myRigidBody2D.velocity = movement;
+		movement = new Vector2(0, MovementSpeed * Input.GetAxisRaw("Player 2 Movement"));
+		myRigidBody2D.velocity = movement;
+	}
+
+	public void OnCollisionEnter2D(Collision2D collision)
+	{
+		ContactPoint2D contact = collision.contacts[0];
+		float contactPosY = contact.point.y;
+		if (collision.gameObject == gameController.Ball)
+		{
+			if (contactPosY < transform.position.y - 1)
+			{
+				PaddlePart = PlayerPart.Lower;
+			}
+			else if (contactPosY > transform.position.y + 1)
+			{
+				PaddlePart = PlayerPart.Upper;
+			}
+			else
+			{
+				PaddlePart = PlayerPart.Middle;
+			}
+		}
 	}
 }
