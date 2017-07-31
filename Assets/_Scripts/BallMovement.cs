@@ -19,6 +19,7 @@ public class BallMovement : MonoBehaviour
 
 		isGameStarted = false;
 		transform.position = Vector2.zero;
+		myRigidBody2D.velocity = Vector2.zero;
 	}
 
 	// Gets the ball moving

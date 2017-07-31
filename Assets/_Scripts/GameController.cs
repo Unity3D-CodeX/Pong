@@ -24,14 +24,20 @@ public class GameController : MonoBehaviour
 	public GameObject Ball;
 
 	// UI game objects
-	public GameObject Player1ScoreText;
-	public GameObject Player2ScoreText;
+	public Text Player1ScoreText;
+	public Text Player2ScoreText;
+	public Text WinText;
+
+	// The score needed to win
+	public int WinScore;
 
 	/// Private variables
 
 	// Player scores
 	private int player1Score;
 	private int player2Score;
+
+	private bool isGamePlaying;
 
 
 	// Use this for initialization
@@ -46,12 +52,9 @@ public class GameController : MonoBehaviour
 	{
 		player1Score = 0;
 		player2Score = 0;
-		ResetBall();
-	}
+		WinText.enabled = false;
+		isGamePlaying = false;
 
-	// Resets paddles and the ball
-	private void ResetBall()
-	{
 		// Reset ball
 		Ball.GetComponent<BallMovement>().ResetBall();
 	}
@@ -64,8 +67,10 @@ public class GameController : MonoBehaviour
 			Players[i].GetComponent<PaddleMovement>().StartGame();
 		}
 
-		// Reset ball
+		// Start ball
 		Ball.GetComponent<BallMovement>().StartBallMovement();
+
+		isGamePlaying = true;
 	}
 
 	// Adds a point to player and resets the game
@@ -75,17 +80,43 @@ public class GameController : MonoBehaviour
 		if (player == Player.Player1)
 		{
 			player1Score += 1;
-			Player1ScoreText.GetComponent<Text>().text = player1Score.ToString();
+			Player1ScoreText.text = player1Score.ToString();
 		}
 		// Adds score to player 2 and update text
 		else
 		{
 			player2Score += 1;
-			Player2ScoreText.GetComponent<Text>().text = player2Score.ToString();
+			Player2ScoreText.text = player2Score.ToString();
 		}
 
-		// Starts next round
-		ResetBall();
-		StartGame();
+		CheckWin();
+	}
+
+	private void CheckWin()
+	{
+		// if player 1 wins
+		if (player1Score == WinScore)
+		{
+			// Congratulate player 1
+			ResetGame();
+			WinText.text = "Player 1 Wins!";
+			WinText.enabled = true;
+		}
+
+		// if player 2 wins
+		else if (player2Score == WinScore)
+		{
+			// Congratulate player 2
+			ResetGame();
+			WinText.text = "Player 2 Wins!";
+			WinText.enabled = true;
+		}
+
+		else if (isGamePlaying)
+		{
+			// Starts next round
+			Ball.GetComponent<BallMovement>().ResetBall();
+			StartGame();
+		}
 	}
 }
