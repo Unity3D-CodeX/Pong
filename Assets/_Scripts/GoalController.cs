@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GoalController : MonoBehaviour
 {
-	public bool isPlayer1Goal;
+	public Player PlayerGoal;
 
 	private GameController gameController;
 
@@ -17,13 +15,36 @@ public class GoalController : MonoBehaviour
 	{
 		if (collision.CompareTag("Ball"))
 		{
-			if (isPlayer1Goal)
+			// if player 1 was scored on, give all other players a point
+			if (PlayerGoal == Player.Player1)
 			{
 				gameController.AddScore(Player.Player2);
+				gameController.AddScore(Player.Player3);
+				gameController.AddScore(Player.Player4);
 			}
-			else
+
+			// if player 2 was scored on, give all other players a point
+			else if (PlayerGoal == Player.Player2)
 			{
 				gameController.AddScore(Player.Player1);
+				gameController.AddScore(Player.Player3);
+				gameController.AddScore(Player.Player4);
+			}
+
+			// if player 3 was scored on, give all other players a point
+			else if (PlayerGoal == Player.Player3)
+			{
+				gameController.AddScore(Player.Player1);
+				gameController.AddScore(Player.Player2);
+				gameController.AddScore(Player.Player4);
+			}
+
+			// if player 4 was scored on, give all other players a point
+			else if (PlayerGoal == Player.Player4)
+			{
+				gameController.AddScore(Player.Player1);
+				gameController.AddScore(Player.Player2);
+				gameController.AddScore(Player.Player3);
 			}
 		}
 	}
