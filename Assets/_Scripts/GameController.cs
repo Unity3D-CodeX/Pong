@@ -83,41 +83,39 @@ public class GameController : MonoBehaviour
 		isGamePlaying = true;
 	}
 
-	// Adds a point to player and resets the game
-	public void AddScore(Player player)
-	{
+    // Adds a point to player and resets the game
+    public void AddScore(Player player)
+    {
 		// Adds score to player 1 and update text
 		if (player == Player.Player1)
-		{
-			playerScores[0] += 1;
-			PlayerScoreTexts[0].text = playerScores[0].ToString();
-		}
+        {
+            playerScores[0] += 1;
+            PlayerScoreTexts[0].text = playerScores[0].ToString();
+        }
 
-		// Adds score to player 2 and update text
-		else if (player == Player.Player2)
-		{
-			playerScores[1] += 1;
-			PlayerScoreTexts[1].text = playerScores[1].ToString();
-		}
+        // Adds score to player 2 and update text
+        else if (player == Player.Player2)
+        {
+            playerScores[1] += 1;
+            PlayerScoreTexts[1].text = playerScores[1].ToString();
+        }
 
-		// Adds score to player 3 and update text
-		else if (Players.Length > 2 && player == Player.Player3)
-		{
-			playerScores[2] += 1;
-			PlayerScoreTexts[2].text = playerScores[2].ToString();
-		}
+        // Adds score to player 3 and update text
+        else if (Players.Length > 2 && player == Player.Player3)
+        {
+            playerScores[2] += 1;
+            PlayerScoreTexts[2].text = playerScores[2].ToString();
+        }
 
-		// Adds score to player 4 and update text
-		else if (Players.Length > 3 && player == Player.Player4)
-		{
-			playerScores[3] += 1;
-			PlayerScoreTexts[3].text = playerScores[3].ToString();
-		}
+        // Adds score to player 4 and update text
+        else if (Players.Length > 3 && player == Player.Player4)
+        {
+            playerScores[3] += 1;
+            PlayerScoreTexts[3].text = playerScores[3].ToString();
+        }
+    }
 
-		CheckWin();
-	}
-
-	private void CheckWin()
+	public void CheckWin()
 	{
 		// if player 1 wins
 		if (playerScores[0] == WinScore)

@@ -46,6 +46,8 @@ public class GoalController : MonoBehaviour
 				gameController.AddScore(Player.Player2);
 				gameController.AddScore(Player.Player3);
 			}
+
+            gameController.CheckWin();
 		}
 	}
 }

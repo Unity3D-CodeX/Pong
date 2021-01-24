@@ -57,10 +57,10 @@ InputManager:
     m_Name: Player 4 Movement
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: g
-    positiveButton: h
-    altNegativeButton: 
-    altPositiveButton: 
+    negativeButton: '[1]'
+    positiveButton: '[2]'
+    altNegativeButton: g
+    altPositiveButton: h
     gravity: 100
     dead: 0
     sensitivity: 60

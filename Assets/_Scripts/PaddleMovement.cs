@@ -10,11 +10,13 @@ public class PaddleMovement : MonoBehaviour
 	private Rigidbody2D myRigidBody2D;
 	private Vector2 movement;
 	private bool isGameStarted;
+    private float movementAxis;
 
 	public void Start ()
 	{
 		/// Getting private variables
 		myRigidBody2D = GetComponent<Rigidbody2D>();
+        movementAxis = 0.0f;
 
 		//ResetPlayer();
 	}
@@ -51,7 +53,27 @@ public class PaddleMovement : MonoBehaviour
 		isGameStarted = true;
 	}
 
-	public void FixedUpdate ()
+    public void Update()
+    {
+        switch (WhichPlayer)
+        {
+            case Player.Player1:
+                movementAxis = Input.GetAxisRaw("Player 1 Movement");
+                break;
+            case Player.Player2:
+                movementAxis = Input.GetAxisRaw("Player 2 Movement");
+                break;
+            case Player.Player3:
+                movementAxis = Input.GetAxisRaw("Player 3 Movement");
+                break;
+            case Player.Player4:
+                movementAxis = Input.GetAxisRaw("Player 4 Movement");
+                break;
+        }
+        
+    }
+
+    public void FixedUpdate ()
 	{
 		if (isGameStarted)
 		{
@@ -83,28 +105,28 @@ public class PaddleMovement : MonoBehaviour
 	// Movement control for player 1
 	private void Player1Move()
 	{
-		movement = new Vector2(0, MovementSpeed * Input.GetAxisRaw("Player 1 Movement"));
+		movement = new Vector2(0, MovementSpeed * movementAxis);
 		myRigidBody2D.velocity = movement;
 	}
 
 	// Movement control for player 2
 	private void Player2Move()
 	{
-		movement = new Vector2(0, MovementSpeed * Input.GetAxisRaw("Player 2 Movement"));
+		movement = new Vector2(0, MovementSpeed * movementAxis);
 		myRigidBody2D.velocity = movement;
 	}
 
 	// Movement control for player 3
 	private void Player3Move()
 	{
-		movement = new Vector2(MovementSpeed * Input.GetAxisRaw("Player 3 Movement"), 0);
+		movement = new Vector2(MovementSpeed * movementAxis, 0);
 		myRigidBody2D.velocity = movement;
 	}
 
 	// Movement control for player 4
 	private void Player4Move()
 	{
-		movement = new Vector2(MovementSpeed * Input.GetAxisRaw("Player 4 Movement"), 0);
+		movement = new Vector2(MovementSpeed * movementAxis, 0);
 		myRigidBody2D.velocity = movement;
 	}
 }
